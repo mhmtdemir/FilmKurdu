@@ -1,0 +1,131 @@
+<html xmlns:="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fa fa-circle text-green"></i>Canlı Yardım</h4>
+                    </div>
+                    <div class="portlet-widgets">
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="chat" class="panel-collapse collapse in">
+                    <div>
+                        <div class="portlet-body chat-widget" id="chatmenu" style="overflow-y: auto; width: auto; height: 300px;">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p id="zaman" class="text-center text-muted small"> </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="media">
+                                        <a class="pull-left" href="#">
+                                            <img class="media-object img-circle" src="../images/asd.jpg" alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Mehmet Demir
+                                                <span class="small pull-right">12:23 PM</span>
+                                            </h4>
+                                            <p>MERHABA YARDIMCI OLABAILECEGIM BIR KONU VARMI ?</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+
+                            </div>
+
+                            <div class="row" id="messages">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form" id="form">
+                            <div class="form-group" >
+                                <input size="55"  type="text" id="mesaj" class="form-control" autocomplete="off" placeholder="Meşazınızı yazin..."> </input>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+</div>
+
+    <script>
+
+    $(function () {
+
+        const socket=io();
+
+        //ALDIGIM MESAJI YOLLICAM app.js socket.on mesaj
+
+        $('#form').submit(function (e) {
+            e.preventDefault();
+
+            socket.emit('mesajim',$('#mesaj').val(),function (msg) {
+
+                $('#messages').append($('<li>').text(msg));//callbackten donen mesaj
+            });
+
+            $('#mesaj').val('');
+            return false;
+        });
+
+        //io.emitten gelen mesaj
+        socket.on('mesajyayinla',function (msg) {
+            document.getElementById("zaman").innerText =msg.tarih+" "+msg.date;
+            $("#chatmenu").animate({
+                scrollTop: $('#chatmenu').prop("scrollHeight")
+            }, 1000);
+
+
+            var $li = $(
+                '<div class="row">'+
+                '<div class="col-lg-12">'+
+                '<p class="text-center text-muted small ">'+ msg.tarih+'</p>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-lg-12">'+
+                '<div class="media">'+
+                '</div>'+
+                '</div>'+
+                '<a class="pull-left" href="#">'+
+                '<img class="media-object img-circle" src="../images/Icon-user.png" alt="">'+ '</a>'+
+                '<div class="media-body" >'+
+                '<h4 class="media-heading text-red">Anonim'+
+                '<span class="small pull-right">'+msg.date+'</span>'+
+                '</h4>'+
+                '<p>'+msg.msg+'</p>'+
+                '</div>'+
+                '<hr>'
+            );
+
+
+            $('#messages').append($li);
+          //  $('#mesajyeri').append($('<li>').text(msg.msg));
+
+
+
+
+        });
+
+    });
+
+    </script>

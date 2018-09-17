@@ -1,0 +1,207 @@
+<body onload="eskimesajlar()">
+<a class="geri" href="#/books">GERİ</a>
+<div class="panel panel-default" id="panel" ng-init="getBook()"  >
+  <div class="panel-heading">
+    <h3 id="filmismi" class="panel-title">{{book.title}}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img" src="{{book.image_url}}">
+      </div>
+      <div class="col-md-7 pull-right">
+        </p>{{book.description}}</p>
+        <ul class="list-group">
+          <li class="list-group-item">Genre: {{book.genre}}</li>
+          <li class="list-group-item">Author: {{book.cast}}</li>
+          <li class="list-group-item">Publisher: {{book.director}}</li>
+          <li class="list-group-item">Pages: {{book.time}}</li>
+        </ul>
+        <a target="_blank" href="{{book.buy_url}}" class="btn btn-primary">Fragman İzle</a>
+        <div class="pull-right">
+          <a href="#/books/edit/{{book._id}}">Edit</a> |  <a href="#" ng-click="removeBook(book._id)">Delete</a>
+        </div>
+      <!-- YORUMLAR -->
+        <div id='form'>
+          <div class="row">
+            <div class="col-md-12">
+
+              <form id="commentform">
+                <h2 class="panel-title filmyorumla">Filmi Yorumla </h2>
+                <div id="comment-name" style="margin-top: 20px" class="form-row">
+                  <input type = "text" placeholder = "Name" name = "dname"  id = "name" >
+                </div>
+                <div id="comment-message" class="form-row">
+                  <input type="text" name = "comment" placeholder = "Message" id = "comment" > </input>
+                </div>
+                <button type="button" class="pull-right" name="dsubmit" id="commentSubmit" >Gönder</button>
+                <button type="button" class="pull-right" name="dsubmit" id="commentSubmit2" >Eski Yorumları Yükle</button>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+    <div class="container">
+      <h1>YORUMLAR</h1>
+      <div class="clear"></div>
+      <div class="dialogbox"  id="yorumsatir">
+        <h4 class="media-heading text-green"></h4>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+    $("document").ready(function() {
+
+
+      //  $('#commentSubmit2').click();
+
+        const socket = io();
+
+        $('#commentSubmit2').click(function (e) {
+            e.preventDefault();
+            //   alert("asldşkasşldşsalkdşkasdlkasdşlka");
+
+            socket.emit('eskiyorumlar',$('#filmismi').text(),function (film) {
+
+                $('#yorumsatir').append($('<h4 class="media-heading text-green">').text(film));
+
+            });
+
+            $('#yorumsatir').append($('<h4 class="media-heading text-green">').text(""));
+            //    $('#yorumsatir').text("");
+
+        });
+
+
+        socket.on('eskiyorumlariyayinla',function(docs) {
+            $('#yorumsatir').html('');
+            for(var k=docs.length-1; k>=0; k--){
+                yorumgoster(docs[k]);
+            }
+        });
+        function yorumgoster(yorum) {
+
+            var $li = $(
+                '<div class="body">'+
+                '<span class="tip tip-down"></span>'+
+                '<div class="message">'+
+                '<a class="pull-left" href="#">'+
+                '<img class="media-object img-circle" src="../images/asd.jpg" alt="">'+
+                '</a>'+
+                '<h4 class="media-heading text-green">'+yorum.yorumyapan+
+                '<span id="zaman2" class="small pull-right">'+yorum.zaman+'</span>'+
+                '</h4>'+
+                //  '<span style="padding: 5px">'+msg.yorumyapan+'</span>'+'</br>'+
+                '<span style="padding: 5px">'+yorum.yorum+'</span>'+
+                '</div>'+
+                '</div>'
+            );
+
+            $('#yorumsatir').append($li);
+
+        }
+
+
+
+    });
+
+
+    $(function () {
+
+        const socket = io();
+
+      /*
+       ///ÖNCE ESKİ YORUMLAR
+       socket.emit('eskiyorumlar',$('#filmismi').text(),function (film) {
+
+       $('#yorumsatir').append($('<h4 class="media-heading text-green">').text(film));
+
+       });
+
+       socket.on('eskiyorumlariyayinla',function(docs) {
+
+       for(var k=docs.length-1; k>=0; k--){
+       yorumgoster(docs[k]);
+       }
+       });
+       function yorumgoster(yorum) {
+
+       var $li = $(
+       '<div class="body">'+
+       '<span class="tip tip-down"></span>'+
+       '<div class="message">'+
+       '<a class="pull-left" href="#">'+
+       '<img class="media-object img-circle" src="../images/asd.jpg" alt="">'+
+       '</a>'+
+       '<h4 class="media-heading text-green">'+yorum.yorumyapan+
+       '<span id="zaman2" class="small pull-right">'+yorum.zaman+'</span>'+
+       '</h4>'+
+       //  '<span style="padding: 5px">'+msg.yorumyapan+'</span>'+'</br>'+
+       '<span style="padding: 5px">'+yorum.yorum+'</span>'+
+       '</div>'+
+       '</div>'
+       );
+
+       $('#yorumsatir').append($li);
+
+       }
+       */
+
+        //YENİ YORUMLARI EKLE YAYINLAAAaa
+
+
+        $('#commentSubmit').click(function (e) {
+            e.preventDefault();
+
+            //   alert("asldşkasşldşsalkdşkasdlkasdşlka");
+
+            socket.emit('yorum' ,$('#filmismi').text(),$('#name').val(),$('#comment').val(),function (film,isim,yorum) {
+
+            });
+
+            $('#name').val('');
+            $('#comment').val('');
+            //    $('#yorumsatir').text("");
+
+        });
+
+        socket.on('yorumyayinla',function (msg) {
+
+            var $li = $(
+                '<div class="body">'+
+                '<span class="tip tip-down"></span>'+
+                '<div class="message">'+
+                '<a class="pull-left" href="#">'+
+                '<img class="media-object img-circle" src="../images/asd.jpg" alt="">'+
+                '</a>'+
+                '<h4 class="media-heading text-green">'+msg.yorumyapan+
+                '<span id="zaman2" class="small pull-right">'+msg.date+'</span>'+
+                '</h4>'+
+                //  '<span style="padding: 5px">'+msg.yorumyapan+'</span>'+'</br>'+
+                '<span style="padding: 5px">'+msg.yorum+'</span>'+
+                '</div>'+
+                '</div>'
+            );
+
+            $('#yorumsatir').append($li);
+
+
+        });
+
+
+    });
+
+
+</script>
+</body>
+
+

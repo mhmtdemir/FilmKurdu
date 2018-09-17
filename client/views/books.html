@@ -1,0 +1,177 @@
+
+<!--
+<div class="panel panel-default" ng-init="getBooks()">
+  <div class="panel-heading">
+    <h3 class="panel-title">Latest Books</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+    	<div ng-repeat="book in books">
+    		<div class="col-md-6">
+    			<div class="col-md-6">
+    				<h4>{{book.title}}</h4>
+    				<p>{{book.description}}</p>
+    				<a class="btn btn-primary" href="#/books/details/{{book._id}}">View Details</a>
+    			</div>
+    			<div class="col-md-6">
+    				<img class="thumbnail" src="{{book.image_url}}">
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>
+-->
+
+<div class="notes" style="background: #000000;">
+
+</div>
+
+	<div class="header">
+		<div class="genel">
+
+			<div class="clear"></div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+	   <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
+	   <li data-target="#myCarousel" data-slide-to="5"></li>
+    <li data-target="#myCarousel" data-slide-to="6"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://www.hdwallpapers.in/walls/2010_inception_movie-wide.jpg" alt="Chania">
+		<div class="carousel-caption">
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+    <div class="item">
+      <img src="../images/la_la_land_2016_4k-1920x1200%20(1).jpg" alt="Chicago">
+	   <div class="carousel-caption">
+	   <h3>2017 En İyi Film!</h3>
+	   </div>
+    </div>
+	  <div class="item">
+      <img src="../images/hobbit.jpg" alt="sdf">
+	   <div class="carousel-caption">
+	   <h3></h3>
+	   </div>
+    </div>
+	  <div class="item">
+      <img src="../images/fantastic.jpg" alt="sd">
+	   <div class="carousel-caption">
+	   <h3></h3>
+	   </div>
+    </div>
+	  <div class="item">
+      <img src="../images/sanandreas.jpg" alt="sdsd">
+	   <div class="carousel-caption">
+	   <h3></h3>
+	   </div>
+    </div>
+
+    <div class="item">
+      <img src="../images/hangover3.jpg" alt="">
+	    <div class="carousel-caption">
+	   <h3></h3>
+	   </div>
+    </div>
+	  <div class="item">
+		  <img src="../images/warcraft.jpg" alt="">
+		  <div class="carousel-caption">
+			  <h3></h3>
+		  </div>
+	  </div>
+   
+  </div>
+  <!-- Left and right controls -->
+</div>
+
+
+
+			</div>
+
+
+
+			
+			<div class="clear"></div>
+			
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="content">
+		<div class="genel">
+				<h3 style="color:#fff" >En Son Çıkan Filmler</h3>
+			<div class="title"  ng-init="getBooks()">
+			
+			</div>
+			<div class="diziList" ng-repeat="book in books" >
+				<ul>
+					<li>
+						<a href="#/books/details/{{book._id}}">
+							<p>{{book.title}}</p><p class="tr"></p>
+							<!--<span>{{book.description}}</span> -->
+							<img src="{{book.image_url}}" alt="Resim1" width="300px" height="300px"/>
+							<strong>View Details<a href="#/books/details/{{book._id}}"></a><br/></strong>
+		
+		
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		
+			<div class="title">
+				<h3>En Son Eklenen Bölümler</h3>
+
+			<!-- </div>
+			<div class="clear"></div>
+			<div class="diziList2">
+				<ul>
+					<li>
+						<a href="#">
+							<p>HD</p><p class="tr"></p>
+							<span>23 Mayıs</span>
+							<img src="images/diziResim.png" alt="Resim1" width="196" height="125"/>
+							<strong>Ironman <br/> 2.Sezon 1.Bölüm</strong>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="title2">
+				<h3>Popüler Diziler</h3>
+			</div>
+			<div class="topList">
+				<ul>
+				</ul>
+			</div>
+			<div class="reklamAlani"></div>
+			<div class="title2">
+			</div>
+			<div class="topList2">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		-->
+	</div>
+
+	<div class="clear"></div>
+<!--	<div class="footer">
+		<div class="genel">
+			<span class="copy"></span>
+			<ul class="social">
+
+			</ul  >-->
+		</div>
+
+	</div>
+</body>
